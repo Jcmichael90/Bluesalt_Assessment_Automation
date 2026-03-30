@@ -1,14 +1,43 @@
-name: Run Cypress Test
+name: Cypress Tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
-    cypress-runner:
-        runs-on: ubuntu-latest
+  cypress-run:
+    name: Run BDD Tests
+    runs-on: ubuntu-latest
 
-        steps:
-        - name: Intialize NPM
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Run Cypress
-          uses: cypress-io/github-action@v6
+      - name: Run BDD Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          command: npm test
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/
+          retention-days: 7
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          retention-days: 7

@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
-    "test:bdd": "cypress run --browser chrome --headless --spec 'cypress/e2e/features/**/*.feature' --config video=false,screenshotOnRunFailure=false",
-    "test:e2e": "cypress run --browser chrome --headless --spec 'cypress/e2e/**/*.cy.js' --config video=false,screenshotOnRunFailure=false",
+    "test": "cypress run --browser chrome --headless --spec 'cypress/e2e/features/**/*.feature' --config video=false,screenshotOnRunFailure=false",
     "cypress:open": "cypress open"
   },
   "keywords": [],

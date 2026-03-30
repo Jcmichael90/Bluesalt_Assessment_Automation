@@ -12,7 +12,7 @@ module.exports = defineConfig({
     viewportHeight: 800,
     video: false,
     screenshotOnRunFailure: true,
-    specPattern: 'cypress/e2e/**/*.{cy.js,feature}',
+    specPattern: 'cypress/e2e/features/**/*.feature',
     supportFile: 'cypress/support/e2e.js',
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
