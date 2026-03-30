@@ -1,52 +1,14 @@
-name: Cypress Tests
+name: Run Cypress Test
 
-on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  cypress-run:
-    name: Run Cypress Tests
-    runs-on: ubuntu-latest
+    cypress-runner:
+        runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        suite:
-          - name: E2E Tests
-            script: test:e2e
-          - name: BDD Tests
-            script: test:bdd
+        steps:
+        - name: Intialize NPM
+          uses: actions/checkout@v4
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run ${{ matrix.suite.name }}
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          command: npm run ${{ matrix.suite.script }}
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-reports-${{ matrix.suite.script }}
-          path: reports/
-          retention-days: 7
-
-      - name: Upload screenshots on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots-${{ matrix.suite.script }}
-          path: cypress/screenshots/
-          retention-days: 7
+        - name: Run Cypress
+          uses: cypress-io/github-action@v6
