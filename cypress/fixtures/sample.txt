@@ -1,0 +1,2 @@
+This is a sample text file used for file upload testing.
+Created for UI Test Automation Playground - File Upload tests.
